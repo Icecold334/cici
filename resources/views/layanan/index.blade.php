@@ -1,1 +1,3 @@
-<x-layouts.main title="Layanan" />
+<x-layouts.main title="Layanan">
+  <livewire:data-layanan />
+</x-layouts.main>

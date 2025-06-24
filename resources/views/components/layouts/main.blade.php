@@ -12,7 +12,7 @@
   <x-layouts.app.nav />
 
   <!-- Main Content -->
-  <main class="pt-20 px-4 lg:ml-64 bg-gradient-to-br from-pink-50 to-primary-100 min-h-screen">
+  <main class="pt-20 px-4 lg:ml-64 bg-gradient-to-br from-pink-100 to-primary-200 min-h-screen">
     {{ $slot }}
   </main>
 
