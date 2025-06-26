@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Layanan;
+use App\Models\Pasien;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,7 +15,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Layanan::factory(30)->create();
+        Layanan::factory(15)->create();
+        Pasien::factory(50)->create();
 
         User::factory()->create([
             'name' => 'Test User',

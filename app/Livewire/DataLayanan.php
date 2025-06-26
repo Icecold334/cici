@@ -4,8 +4,8 @@ namespace App\Livewire;
 
 use App\Models\Layanan;
 use Livewire\Component;
-use Livewire\WithoutUrlPagination;
 use Livewire\WithPagination;
+use Livewire\WithoutUrlPagination;
 
 class DataLayanan extends Component
 {
@@ -13,12 +13,69 @@ class DataLayanan extends Component
 
     public $search = '';
     public $paginate = 5;
+    public $modalOpen = false;
+    public $modalMode = 'create'; // or 'edit' or 'view'
+    public $currentId = null;
 
-    protected $paginationTheme = 'tailwind'; // agar cocok dengan Tailwind CSS
+    public $nama, $deskripsi, $harga;
+
+    protected $paginationTheme = 'tailwind';
+
+    protected $rules = [
+        'nama' => 'required|string|max:255',
+        'deskripsi' => 'nullable|string',
+        'harga' => 'required|numeric',
+    ];
 
     public function updatingSearch()
     {
-        $this->resetPage(); // reset ke halaman 1 saat search berubah
+        $this->resetPage();
+    }
+
+    public function openModal($mode = 'create', $id = null)
+    {
+        $this->resetValidation();
+        $this->reset(['nama', 'deskripsi', 'harga']);
+        $this->modalMode = $mode;
+        $this->modalOpen = true;
+
+        if ($id) {
+            $layanan = Layanan::findOrFail($id);
+            $this->currentId = $id;
+            $this->nama = $layanan->nama;
+            $this->deskripsi = $layanan->deskripsi;
+            $this->harga = $layanan->harga;
+        }
+    }
+
+    public function closeModal()
+    {
+        $this->modalOpen = false;
+        $this->reset(['nama', 'deskripsi', 'harga', 'currentId']);
+    }
+
+    public function save()
+    {
+        $this->validate();
+
+        if ($this->modalMode === 'edit' && $this->currentId) {
+            $layanan = Layanan::findOrFail($this->currentId);
+        } else {
+            $layanan = new Layanan();
+        }
+
+        $layanan->nama = $this->nama;
+        $layanan->deskripsi = $this->deskripsi;
+        $layanan->harga = $this->harga;
+        $layanan->save();
+
+        $this->closeModal();
+    }
+
+    public function delete($id)
+    {
+        $layanan = Layanan::findOrFail($id);
+        $layanan->delete();
     }
 
     public function render()

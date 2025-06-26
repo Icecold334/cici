@@ -5,6 +5,7 @@
     <ul class="space-y-2 px-4 py-6">
       <x-sideitem href="/dashboard" title="Dashboard" icon="fa-solid fa-gauge-high" />
       <x-sideitem href="/layanan" title="Layanan" icon="fa-solid fa-spa" />
+      <x-sideitem href="#" title="Pasien" icon="fa-solid fa-address-book" />
     </ul>
   </div>
 </aside>
