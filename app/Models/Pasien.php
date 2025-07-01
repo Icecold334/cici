@@ -10,4 +10,12 @@ class Pasien extends Model
     /** @use HasFactory<\Database\Factories\PasienFactory> */
     use HasFactory;
     protected $guarded = ['id'];
+    protected $casts = [
+        'tlahir' => 'datetime',
+    ];
+
+    public function transaksis()
+    {
+        return $this->hasMany(Transaksi::class);
+    }
 }

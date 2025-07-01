@@ -4,8 +4,9 @@
     <h2 class="text-2xl font-bold mb-6 text-white text-center px-4 py-3">Cicik</h2>
     <ul class="space-y-2 px-4 py-6">
       <x-sideitem href="/dashboard" title="Dashboard" icon="fa-solid fa-gauge-high" />
-      <x-sideitem href="/layanan" title="Layanan" icon="fa-solid fa-spa" />
-      <x-sideitem href="#" title="Pasien" icon="fa-solid fa-address-book" />
+      <x-sideitem href="/layanan" title="Layanan" icon="fa-solid fa-hand-holding-heart" />
+      <x-sideitem href="/pasien" title="Pasien" icon="fa-solid fa-address-book" />
+      <x-sideitem href="/transaksi" title="Transaksi" icon="fa-solid fa-money-bill-transfer" />
     </ul>
   </div>
 </aside>

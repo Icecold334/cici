@@ -1,0 +1,96 @@
+<?php
+
+namespace App\Livewire;
+
+use App\Models\Transaksi;
+use Livewire\Component;
+use Livewire\WithPagination;
+use Livewire\WithoutUrlPagination;
+
+class DataTransaksi extends Component
+{
+    use WithPagination, WithoutUrlPagination;
+
+    public $search = '';
+    public $paginate = 5;
+    public $filterStatus = '';
+    public $filterTanggal = '';
+
+    public $kode_transaksi, $kode_booking, $status, $nama, $alamat, $tlahir, $nohp, $waktu;
+
+    protected $paginationTheme = 'tailwind';
+
+    protected $rules = [
+        'nama' => 'required|string|max:255',
+        'alamat' => 'required|string',
+        'tlahir' => 'required|date',
+        'nohp' => 'required|string|max:20',
+        'waktu' => 'required|date',
+    ];
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+
+
+    public function addTransaksi()
+    {
+        return redirect()->to('transaksi/add');
+    }
+    public function showTransaksi($id)
+    {
+        return redirect()->to('transaksi/show/' . $id);
+    }
+
+    public function lanjutStatus($id)
+    {
+        $transaksi = Transaksi::findOrFail($id);
+
+        if ($transaksi->status < 3) {
+            $transaksi->status = $transaksi->status + 1;
+            $transaksi->save();
+
+            session()->flash('success', 'Status transaksi diperbarui menjadi: ' . $transaksi->status_nama);
+        }
+    }
+
+    public function batalkanTransaksi($id)
+    {
+        $transaksi = Transaksi::findOrFail($id);
+
+        if (in_array($transaksi->status, [0, 1])) {
+            $transaksi->status = 4; // Dibatalkan
+            $transaksi->save();
+
+            session()->flash('success', 'Transaksi telah dibatalkan.');
+        }
+    }
+
+    public function render()
+    {
+        $query = Transaksi::query();
+
+        if ($this->search) {
+            $query->where(function ($q) {
+                $q->where('nama', 'like', '%' . $this->search . '%');
+                // ->orWhere('kode_transaksi', 'like', '%' . $this->search . '%')
+                // ->orWhere('kode_booking', 'like', '%' . $this->search . '%');
+            });
+        }
+
+        if ($this->filterStatus !== '') {
+            $query->where('status', (int)$this->filterStatus);
+        }
+
+        if ($this->filterTanggal !== '') {
+            $query->whereDate('waktu', $this->filterTanggal);
+        }
+
+        $transaksis = $query->orderBy('created_at', 'desc')
+            ->paginate($this->paginate);
+
+        return view('livewire.data-transaksi', compact('transaksis'));
+    }
+}

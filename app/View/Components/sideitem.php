@@ -3,8 +3,9 @@
 namespace App\View\Components;
 
 use Closure;
-use Illuminate\Contracts\View\View;
+use Illuminate\Support\Str;
 use Illuminate\View\Component;
+use Illuminate\Contracts\View\View;
 
 class sideitem extends Component
 {
@@ -21,7 +22,7 @@ class sideitem extends Component
         $this->href = $href;
         $this->title = $title;
         $this->icon = $icon;
-        $this->active = request()->getPathInfo() == $href;
+        $this->active = Str::startsWith(request()->getPathInfo() . '/', rtrim($href, '/') . '/');
     }
 
     /**

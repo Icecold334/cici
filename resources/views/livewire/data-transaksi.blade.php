@@ -1,0 +1,118 @@
+<div>
+    <div class="flex justify-between mb-6">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <div class="text-4xl font-semibold text-primary-700">Daftar Transaksi</div>
+                <button wire:click="addTransaksi"
+                    class="text-primary-100  hover:text-primary-50 bg-primary-700  hover:bg-primary-800 transition duration-200 font-medium rounded-lg text-sm px-3 py-2">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+        </div>
+        <div class="flex flex-wrap gap-4 items-center">
+            <input type="text" wire:model.live="search"
+                class="bg-primary-50 border border-primary-300 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full md:w-64 p-2.5"
+                placeholder="Cari nama">
+
+            <select wire:model.live="filterStatus"
+                class="bg-primary-50 border border-primary-300 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-40 p-2.5">
+                <option value="">Semua Status</option>
+                <option value="0">Booking Masuk</option>
+                <option value="1">Dikonfirmasi</option>
+                <option value="2">Diproses</option>
+                <option value="3">Selesai</option>
+                <option value="4">Dibatalkan</option>
+            </select>
+
+            <input type="date" wire:model.live="filterTanggal"
+                class="bg-primary-50 border border-primary-300 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2.5">
+
+            <select wire:model.live="paginate"
+                class="bg-primary-50 border border-primary-300 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-20 p-2.5">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="25">25</option>
+            </select>
+        </div>
+
+    </div>
+
+    <div class="relative overflow-x-auto sm:rounded-lg">
+        <table class="w-full text-sm text-left text-primary-500">
+            <thead class="text-xs text-primary-700 uppercase bg-primary-200">
+                <tr>
+                    {{-- <th class="px-4 py-3 text-center">Kode</th> --}}
+                    <th class="px-4 py-3 text-center">Nama</th>
+                    <th class="px-4 py-3 text-center hidden md:table-cell">Waktu</th>
+                    {{-- <th class="px-4 py-3 text-center hidden md:table-cell">No HP</th> --}}
+                    <th class="px-4 py-3 text-center">Status</th>
+                    <th class="px-4 py-3 text-center"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse ($transaksis as $item)
+                <tr class="odd:bg-white even:bg-primary-100 text-primary-900 border-b border-primary-200">
+                    {{-- <td class="px-4 py-3 text-center font-bold text-primary-800">{{ $item->kode_transaksi }}</td>
+                    --}}
+                    <td class="px-4 py-3 text-center">{{ $item->pasien->nama ?? $item->nama }}</td>
+                    <td class="px-4 py-3 text-center hidden md:table-cell">
+                        {{ $item->waktu->translatedFormat('d F Y H:i') }}
+                    </td>
+                    {{-- <td class="px-4 py-3 text-center hidden md:table-cell">{{ $item->nohp }}</td> --}}
+                    <td class="px-4 py-3 text-center">
+                        <span class="px-2 py-1 text-xs font-semibold text-white rounded  {{ $item->status_warna }}">
+                            {{ $item->status_nama }}
+                        </span>
+                    </td>
+                    <td class="px-4 py-3 text-right">
+                        <button wire:click="showTransaksi({{ $item->id }})"
+                            class="text-white bg-info-700 hover:bg-info-800 font-medium rounded-md text-xs px-2 py-1">
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
+
+                        {{-- Tombol Aksi Status --}}
+                        @if (in_array($item->status, [1, 2]) && $item->pasien_id)
+                        <button
+                            class="text-white bg-warning-500 hover:bg-warning-600 font-medium rounded-md text-xs px-2 py-1"
+                            x-data @click="
+                                    Swal.fire({
+                                        title: '{{ $item->status === 2 ? 'Selesaikan Transaksi?' : 'Lanjutkan atau Batalkan?' }}',
+                                        text: '{{ $item->status === 2 ? 'Status akan diselesaikan.' : 'Anda bisa memilih untuk melanjutkan atau membatalkan transaksi ini.' }}',
+                                        icon: '{{ $item->status === 2 ? 'info' : 'question' }}',
+                                        showCancelButton: true,
+                                        showDenyButton: {{ $item->status < 2 ? 'true' : 'false' }},
+                                        confirmButtonText: '{{ $item->status === 2 ? 'Selesaikan' : 'Lanjutkan' }}',
+                                        denyButtonText: 'Batalkan',
+                                        confirmButtonColor: '{{ $item->status === 2 ? '#16a34a' : '#2563eb' }}',
+                                        denyButtonColor: '#dc2626',
+                                        {{-- cancelButtonColor: '#d1d5db', --}}
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            $wire.lanjutStatus({{ $item->id }});
+                                        } else if (result.isDenied) {
+                                            $wire.batalkanTransaksi({{ $item->id }});
+                                        }
+                                    })
+                                " type="button" title="Kelola Status"
+                            class="text-gray-600 hover:text-gray-800 transition">
+                            <i class="fa-solid fa-gear"></i>
+                        </button>
+                        @endif
+                    </td>
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="6" class="text-center py-4 text-gray-500">
+                        Tidak ada data transaksi ditemukan.
+                    </td>
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
+        <div class="mt-4">
+            {{ $transaksis->links() }}
+        </div>
+    </div>
+
+
+</div>

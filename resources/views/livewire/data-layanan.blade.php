@@ -17,7 +17,7 @@
                 <div class="absolute inset-y-0 start-0 flex text-primary-600 items-center ps-3.5 pointer-events-none">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </div>
-                <input type="text" id="input-group-1" wire:model.live="search"
+                <input type="text" id="input-group-1" wire:model.live="search" autofocus
                     class="bg-primary-50 border border-primary-300 text-primary-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full ps-10 p-2.5 dark:bg-primary-700 dark:border-primary-600 dark:placeholder-primary-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Cari Layanan">
             </div>
@@ -84,9 +84,9 @@
                 </tr>
                 @empty
                 <tr class="odd:bg-white even:bg-primary-100 text-primary-900 border-b border-primary-200">
-                    <th scope="row" colspan="4" class="px-6 py-4 text-xl font-medium  whitespace-nowrap text-center">
+                    <td colspan="5" class="text-center py-4">
                         {{ $search ? "Layanan '{$search}' tidak terdaftar":"Tidak ada Layanan" }}
-                    </th>
+                    </td>
                 </tr>
                 @endforelse
             </tbody>
@@ -122,7 +122,7 @@
                     <div>
                         <label class="block text-sm font-medium text-primary-700 dark:text-primary-300">Nama
                             Layanan</label>
-                        <input type="text" wire:model.defer="nama" @if($modalMode=='view' ) disabled @endif
+                        <input type="text" wire:model.live="nama" @if($modalMode=='view' ) disabled @endif
                             placeholder="Masukkan nama layanan"
                             class="w-full mt-1 rounded-md border-primary-300 shadow-sm focus:ring-primary-500 focus:border-primary-500">
                         @error('nama') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
@@ -131,7 +131,7 @@
                     <div>
                         <label
                             class="block text-sm font-medium text-primary-700 dark:text-primary-300">Deskripsi</label>
-                        <textarea wire:model.defer="deskripsi" @if($modalMode=='view' ) disabled @endif
+                        <textarea wire:model.live="deskripsi" @if($modalMode=='view' ) disabled @endif
                             placeholder="Masukkan deskripsi layanan"
                             class="w-full mt-1 rounded-md border-primary-300 shadow-sm focus:ring-primary-500 focus:border-primary-500"></textarea>
                         @error('deskripsi') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
@@ -139,7 +139,7 @@
 
                     <div>
                         <label class="block text-sm font-medium text-primary-700 dark:text-primary-300">Harga</label>
-                        <input type="number" wire:model.defer="harga" @if($modalMode=='view' ) disabled @endif
+                        <input type="number" wire:model.live="harga" @if($modalMode=='view' ) disabled @endif
                             placeholder="Masukkan harga layanan"
                             class="w-full mt-1 rounded-md border-primary-300 shadow-sm focus:ring-primary-500 focus:border-primary-500">
                         @error('harga') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror

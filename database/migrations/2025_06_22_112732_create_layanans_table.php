@@ -11,13 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('layanans', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama');
-            $table->string('deskripsi')->nullable();
-            $table->integer('harga');
-            $table->timestamps();
-        });
+as
     }
 
     /**
