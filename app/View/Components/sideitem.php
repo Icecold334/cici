@@ -17,11 +17,12 @@ class sideitem extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct($href, $title,  $icon)
+    public function __construct($href, $title,  $icon,)
     {
         $this->href = $href;
         $this->title = $title;
         $this->icon = $icon;
+        // test
         $this->active = Str::startsWith(request()->getPathInfo() . '/', rtrim($href, '/') . '/');
     }
 
