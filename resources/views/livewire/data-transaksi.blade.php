@@ -1,40 +1,57 @@
 <div>
-    <div class="flex justify-between mb-6">
-        <div class="flex items-center justify-between">
-            <div class="flex items-center gap-4">
+    <div class="grid gap-4 mb-6">
+        <div class="grid grid-cols-12 gap-4 items-start">
+            <!-- Judul + Tambah -->
+            <div class="col-span-12 md:col-span-4 flex items-center gap-4">
                 <div class="text-4xl font-semibold text-primary-700">Daftar Transaksi</div>
                 <button wire:click="addTransaksi"
-                    class="text-primary-100  hover:text-primary-50 bg-primary-700  hover:bg-primary-800 transition duration-200 font-medium rounded-lg text-sm px-3 py-2">
+                    class="text-primary-100 hover:text-primary-50 bg-primary-700 hover:bg-primary-800 transition duration-200 font-medium rounded-lg text-sm px-3 py-2">
                     <i class="fa-solid fa-plus"></i>
                 </button>
             </div>
+
+            <!-- Filter Group -->
+            <div class="col-span-12 md:col-span-8 flex flex-col md:flex-row md:justify-end gap-4">
+                <!-- Search -->
+                <div class="w-full md:w-1/3">
+                    <input type="text" wire:model.live="search"
+                        class="bg-primary-50 border border-primary-300 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
+                        placeholder="Cari nama">
+                </div>
+
+                <!-- Status / Tanggal / Paginate Group -->
+                <div class="flex justify-center md:justify-start gap-4 w-full md:w-auto">
+                    <!-- Status -->
+                    <div class="w-full md:w-1/2">
+                        <select wire:model.live="filterStatus"
+                            class="bg-primary-50 border border-primary-300 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
+                            <option value="">Semua Status</option>
+                            <option value="0">Booking Masuk</option>
+                            <option value="1">Dikonfirmasi</option>
+                            <option value="2">Diproses</option>
+                            <option value="3">Selesai</option>
+                            <option value="4">Dibatalkan</option>
+                        </select>
+                    </div>
+
+                    <!-- Tanggal -->
+                    <div class="w-1/3">
+                        <input type="date" wire:model.live="filterTanggal"
+                            class="bg-primary-50 border border-primary-300 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
+                    </div>
+
+                    <!-- Paginate -->
+                    <div class="w-18">
+                        <select wire:model.live="paginate"
+                            class="bg-primary-50 border border-primary-300 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="flex flex-wrap gap-4 items-center">
-            <input type="text" wire:model.live="search"
-                class="bg-primary-50 border border-primary-300 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full md:w-64 p-2.5"
-                placeholder="Cari nama">
-
-            <select wire:model.live="filterStatus"
-                class="bg-primary-50 border border-primary-300 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-40 p-2.5">
-                <option value="">Semua Status</option>
-                <option value="0">Booking Masuk</option>
-                <option value="1">Dikonfirmasi</option>
-                <option value="2">Diproses</option>
-                <option value="3">Selesai</option>
-                <option value="4">Dibatalkan</option>
-            </select>
-
-            <input type="date" wire:model.live="filterTanggal"
-                class="bg-primary-50 border border-primary-300 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2.5">
-
-            <select wire:model.live="paginate"
-                class="bg-primary-50 border border-primary-300 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-20 p-2.5">
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="25">25</option>
-            </select>
-        </div>
-
     </div>
 
     <div class="relative overflow-x-auto sm:rounded-lg">

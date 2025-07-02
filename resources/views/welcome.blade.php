@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Selamat Datang di Klinik Kecantikan</title>
+  <title>Selamat Datang di {{ env('APP_NAME') }}</title>
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -13,19 +13,64 @@
   {{-- Header --}}
   <header class="bg-white/80 backdrop-blur sticky top-0 z-50 shadow-sm">
     <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-      <h1 class="text-xl font-bold text-primary-700">Klinik Cantik</h1>
+      <h1 class="text-xl font-bold text-primary-700">{{ env('APP_NAME') }}</h1>
       <a href="#booking" class="text-sm font-medium text-primary-600 hover:underline">Booking</a>
     </div>
   </header>
 
   {{-- Hero --}}
-  <section class="text-center py-20 px-6">
-    <h2 class="text-4xl font-bold text-primary-700 mb-4">Selamat Datang</h2>
-    <p class="text-gray-600 mb-8 text-lg">Rasakan perawatan terbaik dari terapis berpengalaman</p>
-    <a href="#booking"
-      class="px-6 py-3 text-white bg-primary-600 rounded-full hover:bg-primary-700 transition font-semibold shadow">
-      Booking Sekarang
-    </a>
+  <section class=" grid grid-cols-12 gap-6">
+    <div class="text-center py-20 px-6 col-span-7">
+      <h2 class="text-4xl font-bold text-primary-700 mb-4">Selamat Datang</h2>
+      <p class="text-gray-600 mb-8 text-lg">Rasakan perawatan terbaik dari terapis berpengalaman</p>
+      <a href="#booking"
+        class="px-6 py-3 text-white bg-primary-600 rounded-full hover:bg-primary-700 transition font-semibold shadow">
+        Booking Sekarang
+      </a>
+    </div>
+    <div id="default-carousel" class="relative w-full max-h-80 overflow-hidden rounded-lg" data-carousel="static">
+      <!-- Carousel wrapper -->
+      <div class="relative h-80 overflow-hidden rounded-lg">
+        <!-- Item 1 -->
+        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+          <img src="/assets/img/pic1.jpg" class="w-full h-full object-cover object-center" alt="...">
+        </div>
+        <!-- Item 2 -->
+        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+          <img src="/assets/img/pic2.jpg" class="w-full h-full object-cover object-center" alt="...">
+        </div>
+        <!-- Item 3 -->
+        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+          <img src="/assets/img/pic3.jpg" class="w-full h-full object-cover object-center" alt="...">
+        </div>
+        <!-- Item 4 -->
+        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+          <img src="/assets/img/pic4.jpg" class="w-full h-full object-cover object-center" alt="...">
+        </div>
+      </div>
+
+      <!-- Slider controls -->
+      <button type="button"
+        class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+        data-carousel-prev>
+        <span
+          class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 group-hover:bg-white/50">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+          </svg>
+        </span>
+      </button>
+      <button type="button"
+        class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+        data-carousel-next>
+        <span
+          class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 group-hover:bg-white/50">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </span>
+      </button>
+    </div>
   </section>
 
   {{-- Layanan --}}
@@ -35,7 +80,8 @@
       @foreach ($layanans as $layanan)
       <div class="bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition">
         <h4 class="text-lg font-bold text-primary-700 mb-2">{{ $layanan->nama }}</h4>
-        <p class="text-gray-600 mb-3">Harga: Rp{{ number_format($layanan->harga, 0, ',', '.') }}</p>
+        <p class="text-gray-600 mb-3">{{ $layanan->deskripsi }}</p>
+        {{-- <p class="text-gray-600 mb-3">Harga: Rp{{ number_format($layanan->harga, 0, ',', '.') }}</p> --}}
       </div>
       @endforeach
     </div>

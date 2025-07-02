@@ -1,5 +1,6 @@
 <div class="grid grid-cols-12 gap-6">
-    <div class="p-6 bg-white col-span-8 rounded-lg bg-gradient-to-bl from-primary-50 to-primary-100 shadow">
+    <div
+        class="p-6 bg-white col-span-12 md:col-span-8 rounded-lg bg-gradient-to-bl from-primary-50 to-primary-100 shadow">
         <h2 class="text-2xl font-bold text-primary-700 flex items-center gap-3">
             <a href="/pasien"
                 class="bg-primary-600 text-sm text-white w-7  h-7 duration-200 flex items-center justify-center rounded-full hover:bg-primary-700 transition">
@@ -30,7 +31,8 @@
     </div>
 
     {{-- Riwayat Transaksi --}}
-    <div class="p-6 bg-white col-span-4 rounded-lg bg-gradient-to-bl from-primary-50 to-primary-100 shadow">
+    <div
+        class="p-6 bg-white col-span-12 md:col-span-4 rounded-lg bg-gradient-to-bl from-primary-50 to-primary-100 shadow">
         <h3 class="text-lg font-semibold text-gray-700 mb-4">Riwayat Transaksi</h3>
         <div class="overflow-auto">
             <table class="min-w-full text-sm border rounded">

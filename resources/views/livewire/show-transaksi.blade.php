@@ -1,5 +1,5 @@
 <div class="grid grid-cols-12 gap-6">
-    <div class="p-6 bg-gradient-to-bl from-primary-50 to-primary-100 col-span-8 rounded-2xl shadow">
+    <div class="p-6 bg-gradient-to-bl from-primary-50 to-primary-100 col-span-12 xl:col-span-8 rounded-2xl shadow">
         <h2 class="text-2xl font-bold text-primary-700 flex items-center gap-3">
             <a href="/transaksi"
                 class="bg-primary-600 text-sm text-white w-7  h-7 duration-200 flex items-center justify-center rounded-full hover:bg-primary-700 transition">
@@ -142,7 +142,7 @@
     </div>
 
     {{-- Tabel Layanan --}}
-    <div class="p-6 bg-gradient-to-bl from-primary-50 to-primary-100 col-span-4 rounded-2xl shadow">
+    <div class="p-6 bg-gradient-to-bl from-primary-50 to-primary-100 col-span-12 xl:col-span-4 rounded-2xl shadow">
         <h3 class="text-lg font-semibold text-gray-700 mb-4">Daftar Layanan</h3>
         <div class="overflow-auto">
             <table class="min-w-full text-sm border rounded">
