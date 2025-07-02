@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 use Illuminate\View\Component;
 use Illuminate\Contracts\View\View;
 
-class SideItem extends Component
+class sideitem extends Component
 {
     public $href;
     public $title;
@@ -26,12 +26,11 @@ class SideItem extends Component
         $this->active = Str::startsWith(request()->getPathInfo() . '/', rtrim($href, '/') . '/');
     }
 
-
     /**
      * Get the view / contents that represent the component.
      */
     public function render(): View|Closure|string
     {
-        return view('components.side-item');
+        return view('components.sideitem');
     }
 }
