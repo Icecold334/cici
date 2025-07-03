@@ -25,7 +25,7 @@
           <span class="block text-sm  text-gray-500 truncate dark:text-gray-400">{{ auth()->user()->email }}</span>
         </div>
         <ul class="py-2" aria-labelledby="user-menu-button">
-          <li>
+          {{-- <li>
             <a href="#"
               class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
           </li>
@@ -36,7 +36,7 @@
           <li>
             <a href="#"
               class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Earnings</a>
-          </li>
+          </li> --}}
           <li>
             <a href="/logout"
               class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Keluar</a>

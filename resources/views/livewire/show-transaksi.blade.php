@@ -1,6 +1,6 @@
 <div class="grid grid-cols-12 gap-6">
-    <div class="p-6 bg-gradient-to-bl from-primary-50 to-primary-100 col-span-12 xl:col-span-8 rounded-2xl shadow">
-        <h2 class="text-2xl font-bold text-primary-700 flex items-center gap-3">
+    <div class="p-6 bg-gradient-to-bl from-primary-50 to-primary-100 col-span-12 rounded-2xl shadow">
+        <h2 class="text-2xl font-semibold text-primary-700 flex items-center mb-4 gap-3">
             <a href="/transaksi"
                 class="bg-primary-600 text-sm text-white w-7  h-7 duration-200 flex items-center justify-center rounded-full hover:bg-primary-700 transition">
                 <i class="fa-solid fa-angle-left"></i>
@@ -13,25 +13,26 @@
             <table class="w-full text-left text-sm border rounded-lg">
                 <tbody class="divide-y">
                     <tr>
-                        <th class="px-4 py-2 font-medium text-gray-700  w-40">Nama Pasien</th>
-                        <td class="px-4 py-2">{{ $transaksi->pasien->nama ?? $transaksi->nama }}</td>
+                        <th class="text-left px-4 py-2  text-primary-700 text-lg  w-60">Nama</th>
+                        <td class="px-4 py-2 text-lg">{{ $transaksi->pasien->nama ?? $transaksi->nama }}</td>
                     </tr>
                     <tr>
-                        <th class="px-4 py-2 font-medium text-gray-700 ">No. HP</th>
-                        <td class="px-4 py-2">{{ $transaksi->pasien->nohp ?? $transaksi->nohp }}</td>
+                        <th class="text-left px-4 py-2  text-primary-700 text-lg ">No. HP</th>
+                        <td class="px-4 py-2 text-lg">{{ $transaksi->pasien->nohp ?? $transaksi->nohp }}</td>
                     </tr>
                     <tr>
-                        <th class="px-4 py-2 font-medium text-gray-700 ">Alamat</th>
-                        <td class="px-4 py-2">{{ $transaksi->pasien->alamat ?? $transaksi->alamat }}</td>
+                        <th class="text-left px-4 py-2  text-primary-700 text-lg ">Alamat</th>
+                        <td class="px-4 py-2 text-lg">{{ $transaksi->pasien->alamat ?? $transaksi->alamat }}</td>
                     </tr>
                     <tr>
-                        <th class="px-4 py-2 font-medium text-gray-700 ">Tanggal Transaksi</th>
-                        <td class="px-4 py-2">{{ $transaksi->waktu }}</td>
+                        <th class="text-left px-4 py-2  text-primary-700 text-lg ">Tanggal Transaksi</th>
+                        <td class="px-4 py-2 text-lg">{{ $transaksi->waktu }}</td>
                     </tr>
                     <tr>
-                        <th class="px-4 py-2 font-medium text-gray-700 ">Status</th>
-                        <td class="px-4 py-2">
-                            <span class="text-white text-xs px-3 py-1 rounded-full {{ $transaksi->status_warna }}">
+                        <th class="text-left px-4 py-2  text-primary-700 text-lg ">Status</th>
+                        <td class="px-4 py-2 text-lg">
+                            <span
+                                class=" {{ $transaksi->status_warna }} text-white text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">
                                 {{ $transaksi->status_nama }}
                             </span>
                         </td>
@@ -142,8 +143,8 @@
     </div>
 
     {{-- Tabel Layanan --}}
-    <div class="p-6 bg-gradient-to-bl from-primary-50 to-primary-100 col-span-12 xl:col-span-4 rounded-2xl shadow">
-        <h3 class="text-lg font-semibold text-gray-700 mb-4">Daftar Layanan</h3>
+    <div class="p-6 bg-gradient-to-bl from-primary-50 to-primary-100 col-span-12 rounded-2xl shadow">
+        <h3 class="text-2xl font-semibold text-primary-700 flex items-center mb-4">Daftar Layanan</h3>
         <div class="overflow-auto">
             <table class="min-w-full text-sm border rounded">
                 <thead class="">

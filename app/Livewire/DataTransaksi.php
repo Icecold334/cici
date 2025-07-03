@@ -6,6 +6,8 @@ use App\Models\Transaksi;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\WithoutUrlPagination;
+use App\Exports\TransaksiExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DataTransaksi extends Component
 {
@@ -32,6 +34,44 @@ class DataTransaksi extends Component
     {
         $this->resetPage();
     }
+
+    public function exportExcel()
+    {
+        $query = Transaksi::with('pasien');
+
+        if ($this->search) {
+            $query->where(function ($q) {
+                $q->where('nama', 'like', '%' . $this->search . '%');
+            });
+        }
+
+        if ($this->filterStatus !== '') {
+            $query->where('status', (int)$this->filterStatus);
+        }
+
+        if ($this->filterTanggal !== '') {
+            $query->whereDate('waktu', $this->filterTanggal);
+        }
+
+        $data = $query->orderBy('created_at', 'desc')->get();
+        $filename = 'Laporan_' . now()->day . '-' . now()->month . '-' . now()->year . '_' . now()->format('His') . '.xlsx';
+
+        return Excel::download(new TransaksiExport($data), $filename);
+    }
+
+
+    protected function statusToString($val)
+    {
+        return match ((int)$val) {
+            0 => 'Booking Masuk',
+            1 => 'Dikonfirmasi',
+            2 => 'Diproses',
+            3 => 'Selesai',
+            4 => 'Dibatalkan',
+            default => 'Unknown'
+        };
+    }
+
 
 
 

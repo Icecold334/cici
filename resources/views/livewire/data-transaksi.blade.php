@@ -41,13 +41,23 @@
                     </div>
 
                     <!-- Paginate -->
-                    <div class="w-18">
+                    <div class="w-18 flex items-center gap-2">
                         <select wire:model.live="paginate"
                             class="bg-primary-50 border border-primary-300 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
                             <option value="5">5</option>
                             <option value="10">10</option>
                             <option value="25">25</option>
                         </select>
+
+                    </div>
+                    <div class="w-18 flex items-center gap-2">
+
+                        <!-- Tombol Export -->
+                        <button wire:click="exportExcel"
+                            class="text-success-100 hover:text-success-50 bg-success-700 hover:bg-success-800 transition duration-200 font-medium rounded-lg text-sm px-3 py-2"
+                            title="Export ke Excel">
+                            <i class="fa-solid fa-file-excel text-lg"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -77,7 +87,8 @@
                     </td>
                     {{-- <td class="px-4 py-3 text-center hidden md:table-cell">{{ $item->nohp }}</td> --}}
                     <td class="px-4 py-3 text-center">
-                        <span class="px-2 py-1 text-xs font-semibold text-white rounded  {{ $item->status_warna }}">
+                        <span
+                            class=" {{ $item->status_warna }} text-white text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">
                             {{ $item->status_nama }}
                         </span>
                     </td>
