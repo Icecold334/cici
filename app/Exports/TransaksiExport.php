@@ -5,7 +5,6 @@ namespace App\Exports;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\{
     FromCollection,
-    WithHeadings,
     WithStyles,
     WithEvents,
     WithTitle,
@@ -14,7 +13,7 @@ use Maatwebsite\Excel\Concerns\{
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Maatwebsite\Excel\Events\AfterSheet;
 
-class TransaksiExport implements FromCollection, WithHeadings, WithStyles, WithEvents, WithTitle, ShouldAutoSize
+class TransaksiExport implements FromCollection, WithStyles, WithEvents, WithTitle, ShouldAutoSize
 {
     protected $data;
     protected $info;
@@ -25,38 +24,31 @@ class TransaksiExport implements FromCollection, WithHeadings, WithStyles, WithE
         $this->info = $info;
     }
 
-
-
     public function collection()
     {
-
         function format_rupiah($angka)
         {
             return 'Rp ' . number_format($angka, 0, ',', '.');
         }
-        // Susun manual semua baris Excel
+        // Header atas + info filter
         $rows = collect([
-            [env('APP_NAME')],                                 // A1
-            ['Laporan Transaksi'],                             // A2
-            ['Tanggal Export:', now()->format('Y-m-d H:i')],   // A3
-            ['Filter Nama:', $this->info['search'] ?? '-'],    // A4
-            ['Filter Status:', $this->info['status'] ?? '-'],  // A5
-            ['Filter Tanggal:', $this->info['tanggal'] ?? '-'], // A6
-            ['Total Transaksi:', $this->data->count()],        // A7
+            [env('APP_NAME')],
+            ['Tanggal Export:', now()->translatedFormat('l, d F Y')],
+            ['Filter Status:', $this->info['status'] ?? 'Semua Status'],
+            ['Filter Tanggal:', $this->info['tanggal'] ?? 'Semua Tanggal'],
+            ['Total Transaksi:', $this->data->count()],
             ['Total Nominal:', format_rupiah(
                 $this->data->sum(fn($item) => $item->listTransaksis->sum('harga'))
             )],
-            // A8
-            [], // Kosong (baris pemisah)
-            $this->headings(), // Baris Heading ke-10
+            ['Tanggal', 'Nama Pasien', 'Status', 'Nomor HP', 'Alamat', 'Total'],
         ]);
 
-        // Isi data baris transaksi
+        // Baris data mulai dari A11
         $dataRows = $this->data->map(function ($item) {
             $total = $item->listTransaksis->sum('harga');
 
             return [
-                $item->waktu->format('Y-m-d H:i'),
+                $item->waktu->translatedFormat('l, d F Y H:i'),
                 $item->pasien->nama ?? $item->nama,
                 $item->status_nama,
                 $item->nohp,
@@ -68,17 +60,16 @@ class TransaksiExport implements FromCollection, WithHeadings, WithStyles, WithE
         return $rows->concat($dataRows)->values();
     }
 
-    public function headings(): array
-    {
-        return ['Tanggal', 'Nama Pasien', 'Status', 'Nomor HP', 'Alamat', 'Total'];
-    }
-
     public function styles(Worksheet $sheet)
     {
         return [
-            'A1' => ['font' => ['bold' => true, 'size' => 16]],
-            'A2' => ['font' => ['bold' => true, 'size' => 14]],
-            10 => [ // baris heading
+            'A1' => [
+                'font' => ['bold' => true, 'size' => 16],
+                'alignment' => ['horizontal' => 'center'],
+            ],
+            'A2:A6' => ['font' => ['bold' => true]],
+            'B2:B6' => ['alignment' => ['horizontal' => 'right'],],
+            7 => [ // header kolom tabel
                 'font' => ['bold' => true],
                 'alignment' => ['horizontal' => 'center'],
             ],
@@ -89,16 +80,17 @@ class TransaksiExport implements FromCollection, WithHeadings, WithStyles, WithE
     {
         return [
             AfterSheet::class => function (AfterSheet $event) {
-                // Merge untuk judul dan subjudul
+                // Merge untuk judul & subjudul
                 $event->sheet->mergeCells('A1:F1');
-                $event->sheet->mergeCells('A2:F2');
+                // $event->sheet->mergeCells('A2:F2');
+                $event->sheet->freezePane('A8');
+                $event->sheet->setAutoFilter('A7:F7');
 
-                // Warnai header tabel
-                $headerRange = 'A10:F10';
-                $event->sheet->getStyle($headerRange)->applyFromArray([
+                // Warnai baris heading tabel
+                $event->sheet->getStyle('A7:F7')->applyFromArray([
                     'fill' => [
                         'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
-                        'color' => ['rgb' => 'D1E3F8'], // biru muda
+                        'color' => ['rgb' => 'f9a8d4'],
                     ],
                     'borders' => [
                         'allBorders' => [
@@ -107,6 +99,8 @@ class TransaksiExport implements FromCollection, WithHeadings, WithStyles, WithE
                         ],
                     ],
                 ]);
+                $event->sheet->getStyle('F8:F' . (7 + $this->data->count()))
+                    ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
             }
         ];
     }

@@ -13,24 +13,24 @@
             <table class="w-full text-left text-sm border rounded-lg">
                 <tbody class="divide-y">
                     <tr>
-                        <th class="text-left px-4 py-2  text-primary-700 text-lg  w-60">Nama</th>
-                        <td class="px-4 py-2 text-lg">{{ $transaksi->pasien->nama ?? $transaksi->nama }}</td>
+                        <th class="text-left px-4 py-2  text-primary-700   w-60">Nama</th>
+                        <td class="px-4 py-2 ">{{ $transaksi->pasien->nama ?? $transaksi->nama }}</td>
                     </tr>
                     <tr>
-                        <th class="text-left px-4 py-2  text-primary-700 text-lg ">No. HP</th>
-                        <td class="px-4 py-2 text-lg">{{ $transaksi->pasien->nohp ?? $transaksi->nohp }}</td>
+                        <th class="text-left px-4 py-2  text-primary-700  ">No. HP</th>
+                        <td class="px-4 py-2 ">{{ $transaksi->pasien->nohp ?? $transaksi->nohp }}</td>
                     </tr>
                     <tr>
-                        <th class="text-left px-4 py-2  text-primary-700 text-lg ">Alamat</th>
-                        <td class="px-4 py-2 text-lg">{{ $transaksi->pasien->alamat ?? $transaksi->alamat }}</td>
+                        <th class="text-left px-4 py-2  text-primary-700  ">Alamat</th>
+                        <td class="px-4 py-2 ">{{ $transaksi->pasien->alamat ?? $transaksi->alamat }}</td>
                     </tr>
                     <tr>
-                        <th class="text-left px-4 py-2  text-primary-700 text-lg ">Tanggal Transaksi</th>
-                        <td class="px-4 py-2 text-lg">{{ $transaksi->waktu }}</td>
+                        <th class="text-left px-4 py-2  text-primary-700  ">Waktu Transaksi</th>
+                        <td class="px-4 py-2 ">{{ $transaksi->waktu->translatedFormat('l, d F Y H:i') }}</td>
                     </tr>
                     <tr>
-                        <th class="text-left px-4 py-2  text-primary-700 text-lg ">Status</th>
-                        <td class="px-4 py-2 text-lg">
+                        <th class="text-left px-4 py-2  text-primary-700  ">Status</th>
+                        <td class="px-4 py-2 ">
                             <span
                                 class=" {{ $transaksi->status_warna }} text-white text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">
                                 {{ $transaksi->status_nama }}
@@ -231,7 +231,7 @@
     @if ($showKonfirmasiPasienLama)
     <div x-data class="fixed inset-0 z-50 backdrop-blur-md bg-black/50 flex items-center justify-center">
         <div class="bg-white w-full max-w-md rounded-2xl shadow-lg p-6">
-            <h2 class="text-lg font-semibold text-gray-800 mb-4">Konfirmasi Pasien Lama</h2>
+            <h2 class=" font-semibold text-gray-800 mb-4">Konfirmasi Pasien Lama</h2>
             <p class="text-sm text-gray-600 mb-6">Yakin ingin menghubungkan transaksi ini ke pasien terpilih?</p>
 
             <div class="flex justify-end gap-3">

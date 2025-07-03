@@ -5,6 +5,7 @@ namespace Database\Factories;
 use Carbon\Carbon;
 use App\Models\Layanan;
 use App\Models\ListTransaksi;
+use App\Models\Pasien;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -27,8 +28,12 @@ class TransaksiFactory extends Factory
             'alamat' => fake()->address,
             'tlahir' => fake()->dateTimeBetween('-60 years', '-18 years'),
             'nohp' => fake()->phoneNumber,
+            'pasien_id' => $status == 0 ? null : Pasien::all()->random()->id,
             'status' => $status,
-            'waktu' => \Carbon\Carbon::today()->addHours(fake()->numberBetween(7, 18)),
+            'waktu' => \Carbon\Carbon::now()
+                ->subDays(fake()->numberBetween(0, 60))
+                ->setTime(fake()->numberBetween(7, 18), fake()->numberBetween(0, 59)),
+
         ];
     }
     public function configure()

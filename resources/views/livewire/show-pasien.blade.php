@@ -10,20 +10,20 @@
         <table class="text-sm my-6 w-full border rounded">
             <tbody class="divide-y font-normal">
                 <tr>
-                    <th class="text-left w-60 px-4 py-2  text-primary-700 text-lg">Nama</th>
-                    <td class="px-4 py-2 text-lg">{{ $pasien->nama }}</td>
+                    <th class="text-left w-60 px-4 py-2  text-primary-700 ">Nama</th>
+                    <td class="px-4 py-2 ">{{ $pasien->nama }}</td>
                 </tr>
                 <tr>
-                    <th class="text-left px-4 py-2  text-primary-700 text-lg">No HP</th>
-                    <td class="px-4 py-2 text-lg">{{ $pasien->nohp }}</td>
+                    <th class="text-left px-4 py-2  text-primary-700 ">No HP</th>
+                    <td class="px-4 py-2 ">{{ $pasien->nohp }}</td>
                 </tr>
                 <tr>
-                    <th class="text-left px-4 py-2  text-primary-700 text-lg">Tanggal Lahir</th>
-                    <td class="px-4 py-2 text-lg">{{ $pasien->tlahir->translatedFormat('l, d M Y') }}</td>
+                    <th class="text-left px-4 py-2  text-primary-700 ">Tanggal Lahir</th>
+                    <td class="px-4 py-2 ">{{ $pasien->tlahir->translatedFormat('l, d M Y') }}</td>
                 </tr>
                 <tr>
-                    <th class="text-left px-4 py-2  text-primary-700 text-lg">Alamat</th>
-                    <td class="px-4 py-2 text-lg">{{ $pasien->alamat }}</td>
+                    <th class="text-left px-4 py-2  text-primary-700 ">Alamat</th>
+                    <td class="px-4 py-2 ">{{ $pasien->alamat }}</td>
                 </tr>
             </tbody>
         </table>
@@ -101,7 +101,7 @@
     <div class="fixed inset-0 z-50 bg-black/50 backdrop-blur-md flex items-center justify-center">
         <div class="bg-white w-full max-w-md rounded-lg shadow-lg">
             <div class="flex items-center justify-between p-4 border-b rounded-t">
-                <h3 class="text-lg font-semibold text-gray-900">
+                <h3 class=" font-semibold text-gray-900">
                     Detail Layanan - {{ $selectedTrx->waktu->translatedFormat('l, d F Y H:i') }}
                 </h3>
                 <button wire:click="closeModal" class="text-gray-400 hover:text-gray-900">

@@ -2,11 +2,12 @@
 
 namespace App\Livewire;
 
-use App\Models\Transaksi;
+use Carbon\Carbon;
 use Livewire\Component;
+use App\Models\Transaksi;
 use Livewire\WithPagination;
-use Livewire\WithoutUrlPagination;
 use App\Exports\TransaksiExport;
+use Livewire\WithoutUrlPagination;
 use Maatwebsite\Excel\Facades\Excel;
 
 class DataTransaksi extends Component
@@ -54,10 +55,19 @@ class DataTransaksi extends Component
         }
 
         $data = $query->orderBy('created_at', 'desc')->get();
+
+        $info = [
+            'status' => $this->filterStatus !== '' ? $this->statusToString($this->filterStatus) : 'Semua Status',
+            'tanggal' => $this->filterTanggal
+                ? Carbon::parse($this->filterTanggal)->translatedFormat('l, d F Y')
+                : 'Semua Tanggal',
+        ];
+
         $filename = 'Laporan_' . now()->day . '-' . now()->month . '-' . now()->year . '_' . now()->format('His') . '.xlsx';
 
-        return Excel::download(new TransaksiExport($data), $filename);
+        return Excel::download(new TransaksiExport($data, $info), $filename);
     }
+
 
 
     protected function statusToString($val)
