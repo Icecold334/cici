@@ -95,7 +95,7 @@
         <!-- Booking Hari Ini -->
         <div class="p-4 bg-gradient-to-bl from-primary-50 md:col-span-2 to-primary-100  rounded-lg shadow-md">
             <h3 class="font-bold text-lg mb-2 flex items-center gap-2">
-                <i class="fa-solid fa-calendar-check text-yellow-500"></i> Booking Hari Ini
+                <i class="fa-solid fa-calendar-check text-yellow-500"></i> Reservasi Hari Ini
             </h3>
             <ul class="space-y-2 text-sm">
                 @forelse ($bookingHariIni as $trx)
@@ -104,7 +104,7 @@
                     <span class="text-right text-gray-500">{{ $trx->waktu->format('H:i') }}</span>
                 </li>
                 @empty
-                <li class="text-gray-400">Tidak ada booking</li>
+                <li class="text-gray-400">Tidak ada reservasi</li>
                 @endforelse
             </ul>
         </div>
