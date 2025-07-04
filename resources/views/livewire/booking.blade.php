@@ -2,7 +2,7 @@
     {{-- Header --}}
 
 
-    <div class="max-w-7xl mx-auto grid grid-cols-12 gap-6 p-20 ">
+    <div class="max-w-7xl mx-auto grid grid-cols-12 gap-6 py-20 px-5 md:px-20 ">
         <div class="md:col-span-7 col-span-12">
             <div class="grid grid-cols-12 gap-6">
                 <div class="col-span-12 md:col-span-7">
