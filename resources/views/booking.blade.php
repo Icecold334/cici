@@ -22,7 +22,7 @@
       <a href="/booking" class="text-sm font-medium text-primary-600 hover:underline">Reservasi</a>
     </div>
   </header>
-  <livewire:welcome :layanans="$layanans" />
+  <livewire:booking :layanans="$layanans" />
 </body>
 <script>
   window.addEventListener('booked', function (event) {

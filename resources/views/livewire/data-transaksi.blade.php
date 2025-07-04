@@ -26,7 +26,7 @@
                         <select wire:model.live="filterStatus"
                             class="bg-primary-50 border border-primary-300 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
                             <option value="">Semua Status</option>
-                            <option value="0">Booking Masuk</option>
+                            <option value="0">Reservasi</option>
                             <option value="1">Dikonfirmasi</option>
                             <option value="2">Diproses</option>
                             <option value="3">Selesai</option>

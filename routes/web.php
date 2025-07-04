@@ -14,6 +14,11 @@ Route::get('/', function () {
 
     return view('welcome', compact('layanans'));
 })->name('home');
+Route::get('/booking', function () {
+    $layanans = Layanan::orderBy('nama')->get();
+
+    return view('booking', compact('layanans'));
+})->name('home');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])

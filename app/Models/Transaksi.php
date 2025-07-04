@@ -21,7 +21,7 @@ class Transaksi extends Model
     {
         return Attribute::get(function () {
             return match ($this->status) {
-                0 => 'Booking Masuk',
+                0 => 'Reservasi',
                 1 => 'Dikonfirmasi',
                 2 => 'Diproses',
                 3 => 'Selesai',

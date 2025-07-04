@@ -10,7 +10,7 @@
         <table class="text-sm my-6 w-full border rounded">
             <tbody class="divide-y font-normal">
                 <tr>
-                    <th class="text-left w-60 px-4 py-2  text-primary-700 ">Nama</th>
+                    <th class="text-left  px-4 py-2  text-primary-700 ">Nama</th>
                     <td class="px-4 py-2 ">{{ $pasien->nama }}</td>
                 </tr>
                 <tr>
@@ -42,7 +42,7 @@
                 <select id="filterStatus" wire:model.live="filterStatus"
                     class="bg-primary-50 border border-primary-300 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
                     <option value="">Semua Status</option>
-                    <option value="0">Booking Masuk</option>
+                    <option value="0">Reservasi</option>
                     <option value="1">Dikonfirmasi</option>
                     <option value="2">Diproses</option>
                     <option value="3">Selesai</option>

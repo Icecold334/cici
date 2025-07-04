@@ -13,7 +13,7 @@
             <table class="w-full text-left text-sm border rounded-lg">
                 <tbody class="divide-y">
                     <tr>
-                        <th class="text-left px-4 py-2  text-primary-700   w-60">Nama</th>
+                        <th class="text-left px-4 py-2  text-primary-700   ">Nama</th>
                         <td class="px-4 py-2 ">{{ $transaksi->pasien->nama ?? $transaksi->nama }}</td>
                     </tr>
                     <tr>
@@ -50,7 +50,7 @@
             {{-- Tombol Konfirmasi --}}
             <button x-data @click="
                 Swal.fire({
-                    title: 'Konfirmasi Booking?',
+                    title: 'Konfirmasi Reservasi?',
                     text: 'Apakah ini pasien baru atau lama?',
                     icon: 'question',
                     showDenyButton: true,
@@ -177,13 +177,13 @@
     </div>
     @if ($showPasienPicker)
     <div x-data class="fixed inset-0 z-50 backdrop-blur-md bg-black/50 flex items-center justify-center">
-        <div class="bg-white w-full max-w-2xl rounded-2xl shadow-lg p-6">
+        <div class="bg-gradient-to-bl from-primary-50 to-primary-100 w-full max-w-2xl rounded-2xl shadow-lg p-6">
             <h2 class="text-xl font-semibold text-gray-700 mb-4">Pilih Pasien Lama</h2>
 
             {{-- Input pencarian --}}
             <div class="mb-3">
-                <input wire:model.live="searchPasien" type="text" placeholder="Cari nama, no HP, atau alamat..."
-                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:border-primary-500 text-sm">
+                <input wire:model.live="searchPasien" type="text" placeholder="Cari nama"
+                    class="bg-primary-50 border border-primary-300 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
             </div>
 
             {{-- Tabel hasil --}}
@@ -192,17 +192,17 @@
                     <thead class="bg-gray-100">
                         <tr>
                             <th class="px-4 py-2">Nama</th>
-                            <th class="px-4 py-2">No. HP</th>
-                            <th class="px-4 py-2">Alamat</th>
+                            {{-- <th class="px-4 py-2">No. HP</th>
+                            <th class="px-4 py-2">Alamat</th> --}}
                             <th class="px-4 py-2"></th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse ($filteredPasien as $pasien)
-                        <tr class="hover:bg-gray-50 border-b">
+                        <tr class="hover:bg-primary-200 border-b">
                             <td class="px-4 py-2">{{ $pasien->nama }}</td>
-                            <td class="px-4 py-2">{{ $pasien->nohp }}</td>
-                            <td class="px-4 py-2">{{ $pasien->alamat }}</td>
+                            {{-- <td class="px-4 py-2">{{ $pasien->nohp }}</td>
+                            <td class="px-4 py-2">{{ $pasien->alamat }}</td> --}}
                             <td class="px-4 py-2">
                                 <button wire:click="setSelectedPasien({{ $pasien->id }})"
                                     class="text-sm px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
