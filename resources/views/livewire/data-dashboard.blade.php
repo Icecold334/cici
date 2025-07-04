@@ -34,7 +34,7 @@
         <!-- Booking Masuk -->
         <div class="p-4 bg-gradient-to-bl from-primary-50 md:col-span-2 to-primary-100 rounded-lg shadow-md">
             <div class="text-purple-500 text-xl mb-1"><i class="fas fa-hourglass-half"></i></div>
-            <div class="text-gray-700 dark:text-gray-200">Booking Masuk</div>
+            <div class="text-gray-700 dark:text-gray-200">Reservasi Masuk</div>
             <div class="text-2xl font-bold">{{ $bookingActiveCount }}</div>
         </div>
 
