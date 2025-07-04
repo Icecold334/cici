@@ -148,7 +148,7 @@
         function confirmDelete(id) {
             Swal.fire({
                 title: 'Yakin ingin menghapus?',
-                text: "Data tidak bisa dikembalikan!",
+                text: "Menghapus pasien ini juga akan menghapus seluruh data transaksinya. Apakah Anda yakin?",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d33',
@@ -163,4 +163,20 @@
         }
     </script>
     @endPushOnce
+    <script>
+        window.addEventListener('toast', event => {
+            
+                const { type = 'success', message = '' } = event.detail[0];
+        
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    icon: type,
+                    title: message,
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                });
+            });
+    </script>
 </div>

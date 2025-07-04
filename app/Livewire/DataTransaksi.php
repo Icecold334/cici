@@ -102,7 +102,7 @@ class DataTransaksi extends Component
             $transaksi->status = $transaksi->status + 1;
             $transaksi->save();
 
-            session()->flash('success', 'Status transaksi diperbarui menjadi: ' . $transaksi->status_nama);
+            $this->dispatch('toast', title: 'Status transaksi diperbarui: ' . $transaksi->status_nama, icon: 'success');
         }
     }
 
@@ -114,7 +114,7 @@ class DataTransaksi extends Component
             $transaksi->status = 4; // Dibatalkan
             $transaksi->save();
 
-            session()->flash('success', 'Transaksi telah dibatalkan.');
+            $this->dispatch('toast', title: 'Transaksi telah dibatalkan.', icon: 'warning');
         }
     }
 

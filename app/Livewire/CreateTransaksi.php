@@ -49,6 +49,8 @@ class CreateTransaksi extends Component
             $this->list[] = [
                 'id' => $layanan->id,
                 'nama' => $layanan->nama,
+                'harga' => $layanan->harga,
+                'deskripsi' => $layanan->deskripsi,
                 'harga' => $layanan->harga
             ];
             $this->layanan_id = null;
@@ -104,7 +106,9 @@ class CreateTransaksi extends Component
                 ListTransaksi::create([
                     'transaksi_id' => $transaksi->id,
                     'layanan_id' => $item['id'],
-                    'harga' => $item['harga']
+                    'nama' => $item['nama'],
+                    'deskripsi' => $item['deskripsi'],
+                    'harga' => $item['harga'],
                 ]);
             }
         });

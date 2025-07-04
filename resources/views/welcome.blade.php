@@ -7,9 +7,10 @@
   <title>Selamat Datang di {{ env('APP_NAME') }}</title>
 
   @vite(['resources/css/app.css', 'resources/js/app.js'])
-  <script src="https://kit.fontawesome.com/5fd2369345.js" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/5fd2369345.js" crossorigin="anonymous"></script>
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-  </script>
   <!-- AOS Animation -->
   <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
 </head>
@@ -17,5 +18,18 @@
 <body class="bg-gradient-to-br from-primary-100 to-primary-200 min-h-screen font-sans text-gray-800">
   <livewire:booking :layanans="$layanans" />
 </body>
+<script>
+  window.addEventListener('booked', function (event) {
+    Swal.fire({
+      toast: true,
+      position: 'top-end',
+      icon: 'success',
+      title: event.detail,
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+    });
+  });
+</script>
 
 </html>

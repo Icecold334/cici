@@ -68,7 +68,7 @@ class DataLayanan extends Component
         $layanan->deskripsi = $this->deskripsi;
         $layanan->harga = $this->harga;
         $layanan->save();
-
+        $this->dispatch('toast', title: 'Data layanan disimpan', icon: 'success');
         $this->closeModal();
     }
 
@@ -76,6 +76,7 @@ class DataLayanan extends Component
     {
         $layanan = Layanan::findOrFail($id);
         $layanan->delete();
+        $this->dispatch('toast', title: 'Layanan dihapus', icon: 'success');
     }
 
     public function render()

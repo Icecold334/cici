@@ -67,9 +67,9 @@
     </script>
     {{-- Modal --}}
     <div x-data="{ show: @entangle('showModal') }" x-show="show" x-cloak
-        class="fixed inset-0 flex items-center justify-center bg-black/40 z-50">
+        class="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-lg z-50">
         <div @click.outside="show = false"
-            class="bg-white rounded-2xl shadow-xl max-w-lg w-full p-6 space-y-4 relative">
+            class="bg-white rounded-2xl shadow-xl max-w-6xl w-full p-6 space-y-4 relative">
 
             <button @click="show = false" wire:click="closeModal"
                 class="absolute top-3 right-3 text-gray-500 hover:text-red-500">
@@ -80,61 +80,74 @@
                 <i class="fas fa-edit mr-2 text-pink-500"></i> Form Booking
             </h3>
 
-            <div class="space-y-4">
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium">Nama</label>
-                        <input type="text" wire:model.live="nama"
-                            class="w-full px-4 py-2 border rounded-md focus:ring-primary-500 focus:border-primary-500" />
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium">No. HP</label>
-                        <input type="text" wire:model.live="no_hp"
-                            class="w-full px-4 py-2 border rounded-md focus:ring-primary-500 focus:border-primary-500" />
-                    </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-sm font-medium">Tanggal</label>
-                            <input type="date" wire:model.live="tanggal"
-                                class="w-full px-4 py-2 border rounded-md focus:ring-primary-500 focus:border-primary-500" />
+            <div class="grid grid-cols-12 gap-6">
+                <div class="md:col-span-7 col-span-12">
+                    <div class="grid grid-cols-12 gap-6">
+                        <div class="col-span-12 md:col-span-7">
+                            <label class="block text-sm font-medium">Nama</label>
+                            <input type="text" wire:model.live="nama" placeholder="Masukkan nama lengkap"
+                                class="w-full mt-1 rounded-md border-primary-300 shadow-sm focus:ring-primary-500 focus:border-primary-500" />
                         </div>
-                        <div>
-                            <label class="block text-sm font-medium">Jam</label>
-                            <input type="time" wire:model.live="jam"
-                                class="w-full px-4 py-2 border rounded-md focus:ring-primary-500 focus:border-primary-500" />
+                        <div class="col-span-12 md:col-span-5">
+                            <label class="block text-sm font-medium">No. HP</label>
+                            <input type="text" wire:model.live="no_hp" placeholder="Masukkan nomor HP"
+                                class="w-full mt-1 rounded-md border-primary-300 shadow-sm focus:ring-primary-500 focus:border-primary-500" />
                         </div>
-                    </div>
+                        <div class="col-span-12 md:col-span-4 ">
+                            <label class="block text-sm font-medium">Tanggal Lahir</label>
+                            <input type="date" wire:model.live="tlahir"
+                                class="w-full mt-1 rounded-md border-primary-300 shadow-sm focus:ring-primary-500 focus:border-primary-500" />
+                        </div>
+                        <div class="col-span-12 md:col-span-8 ">
+                            <label class="block text-sm font-medium">Waktu Reservasi</label>
+                            <input type="datetime-local" wire:model.live="tanggal"
+                                class="w-full mt-1 rounded-md border-primary-300 shadow-sm focus:ring-primary-500 focus:border-primary-500" />
+                        </div>
+                        <div class="col-span-12 ">
+                            <label class="block text-sm font-medium">Alamat</label>
+                            <textarea wire:model.live="alamat"
+                                class="w-full mt-1 rounded-md border-primary-300 shadow-sm focus:ring-primary-500 focus:border-primary-500"
+                                placeholder="Masukkan alamat"></textarea>
+                        </div>
 
-                    <!-- Layanan Section -->
-                    <div>
-                        <label class="block text-sm font-medium mb-1">Pilih Layanan</label>
-                        <div class="flex gap-2">
-                            <select wire:model.live="layanan_id"
-                                class="flex-1 px-4 py-2 border rounded-md focus:ring-primary-500 focus:border-primary-500">
-                                <option value="">-- Pilih --</option>
-                                @foreach ($layanans as $layanan)
-                                <option value="{{ $layanan->id }}">{{ $layanan->nama }}</option>
-                                @endforeach
-                            </select>
-                            <button wire:click="addLayanan"
-                                class="px-3 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">
-                                <i class="fas fa-plus"></i>
-                            </button>
+                        <!-- Layanan Section -->
+                        <div class="col-span-12">
+                            <label class="block text-sm font-medium ">Pilih Layanan</label>
+                            <div class="flex gap-2">
+                                <select wire:model.live="layanan_id" class="flex-1 px-4 py-2 border 
+                                    w-full  rounded-md border-primary-300 shadow-sm focus:ring-primary-500 focus:border-primary-500
+                                    ">
+                                    <option value="">-- Pilih Layanan --</option>
+                                    @foreach ($layanans as $layanan)
+                                    <option value="{{ $layanan->id }}" @disabled(in_array($layanan->id,
+                                        array_column($layanan_terpilih, 'id')))>
+                                        {{ $layanan->nama }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                                <button wire:click="addLayanan" @disabled(!$layanan_id)
+                                    class="{{ !$layanan_id ? 'opacity-50 cursor-not-allowed':'hover:bg-primary-700' }} bg-primary-600 duration-200 text-white px-4 py-2 rounded  transition">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
                         </div>
+
+
+
                     </div>
+                </div>
+                <div class="md:col-span-5 col-span-12 max-h-40 overflow-y-auto">
                     <!-- Tabel Layanan Terpilih -->
-                    @if (count($layanan_terpilih))
                     <div class="mt-4">
-                        <h4 class="text-sm font-medium mb-2">Layanan Dipilih:</h4>
-                        <table class="w-full text-sm text-left border rounded">
+                        <table class="w-full text-sm text-left border rounded ">
                             <thead class="bg-gray-100">
                                 <tr>
                                     <th class="px-3 py-2">Layanan</th>
-                                    <th class="px-3 py-2 text-right">Aksi</th>
+                                    <th class="px-3 py-2 text-right"></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($layanan_terpilih as $index => $item)
+                                @forelse ($layanan_terpilih as $index => $item)
                                 <tr>
                                     <td class="px-3 py-2">{{ $item['nama'] }}</td>
                                     <td class="px-3 py-2 text-right">
@@ -144,18 +157,23 @@
                                         </button>
                                     </td>
                                 </tr>
-                                @endforeach
+                                @empty
+                                <tr>
+                                    <td class="px-3 py-2 text-center" colspan="3">Tidak ada layanan dipilih</td>
+                                </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
-                    @endif
-
-                    <button
-                        class="w-full px-4 py-2 mt-4 bg-primary-600 text-white rounded-md hover:bg-primary-700 font-semibold">
+                </div>
+                <div class="col-span-12">
+                    <button @disabled($disableSimpan) wire:click="simpan"
+                        class="{{ $disableSimpan ? 'opacity-50 cursor-not-allowed':'hover:bg-primary-700' }} bg-primary-600 duration-200 text-white px-4 py-2 rounded  transition w-full">
                         Kirim Booking
                     </button>
                 </div>
             </div>
         </div>
     </div>
+
 </div>

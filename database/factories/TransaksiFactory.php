@@ -46,6 +46,8 @@ class TransaksiFactory extends Factory
                 ListTransaksi::create([
                     'transaksi_id' => $transaksi->id,
                     'layanan_id' => $layanan->id,
+                    'nama' => $layanan->nama,
+                    'deskripsi' => $layanan->deskripsi,
                     'harga' => $layanan->harga,
                 ]);
             }

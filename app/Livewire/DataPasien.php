@@ -76,14 +76,29 @@ class DataPasien extends Component
         $pasien->tlahir = $this->tlahir;
         $pasien->nohp = $this->nohp;
         $pasien->save();
-
+        $this->dispatch('toast', [
+            'type' => 'success',
+            'message' => $this->modalMode === 'edit' ? 'Data pasien berhasil diperbarui.' : 'Data pasien berhasil ditambahkan.'
+        ]);
         $this->closeModal();
     }
 
     public function delete($id)
     {
         $pasien = Pasien::findOrFail($id);
+        foreach ($pasien->transaksis as $transaksi) {
+            // Hapus relasi anak dari transaksi (misalnya list_transaksi)
+            $transaksi->listTransaksis()->delete();
+
+            // Hapus transaksi itu sendiri
+            $transaksi->delete();
+        }
+        $pasien->transaksis()->delete();
         $pasien->delete();
+        $this->dispatch('toast', [
+            'type' => 'success',
+            'message' => 'Data pasien berhasil dihapus.'
+        ]);
     }
 
     public function render()

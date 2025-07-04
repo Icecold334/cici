@@ -158,8 +158,8 @@
                     @foreach ($transaksi->listTransaksis as $index => $detail)
                     <tr class="border-b hover:bg-primary-100 transition duration-200">
                         <td class="px-3 py-2">{{ $loop->iteration }}</td>
-                        <td class="px-3 py-2">{{ $detail->layanan->nama }}</td>
-                        <td class="px-3 py-2">Rp{{ number_format($detail->layanan->harga, 0, ',', '.') }}</td>
+                        <td class="px-3 py-2">{{ $detail->nama }}</td>
+                        <td class="px-3 py-2">Rp{{ number_format($detail->harga, 0, ',', '.') }}</td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -167,7 +167,7 @@
                     <tr class=" font-semibold">
                         <td colspan="2" class="px-3 py-2">Total</td>
                         <td class="px-3 py-2 text-primary-700">
-                            Rp{{ number_format($transaksi->listTransaksis->sum(fn($d) => $d->layanan->harga), 0, ',',
+                            Rp{{ number_format($transaksi->listTransaksis->sum(fn($d) => $d->harga), 0, ',',
                             '.') }}
                         </td>
                     </tr>
@@ -247,5 +247,17 @@
         </div>
     </div>
     @endif
-
+    <script>
+        window.addEventListener('toast', event => {
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    icon: event.detail.icon || 'info',
+                    title: event.detail.title || '',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true
+                });
+            });
+    </script>
 </div>

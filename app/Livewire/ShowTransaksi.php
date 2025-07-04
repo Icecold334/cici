@@ -52,6 +52,7 @@ class ShowTransaksi extends Component
             $transaksi->save();
         }
         $this->fetch($id);
+        $this->dispatch('toast', title: 'Status transaksi dilanjutkan', icon: 'info');
     }
 
     public function batalkanTransaksi($id)
@@ -62,6 +63,7 @@ class ShowTransaksi extends Component
             $transaksi->save();
         }
         $this->fetch($id);
+        $this->dispatch('toast', title: 'Transaksi dibatalkan', icon: 'warning');
     }
 
     public function selesaikanTransaksi($id)
@@ -72,6 +74,7 @@ class ShowTransaksi extends Component
             $transaksi->save();
         }
         $this->fetch($id);
+        $this->dispatch('toast', title: 'Transaksi selesai', icon: 'success');
     }
 
     public function konfirmasiBooking($tipe)
@@ -91,6 +94,7 @@ class ShowTransaksi extends Component
             $this->transaksi->status = 1;
             $this->transaksi->save();
             $this->fetch($this->transaksi->id);
+            $this->dispatch('toast', title: 'Transaksi dikonfirmasi sebagai pasien baru', icon: 'success');
         }
     }
 
@@ -111,8 +115,8 @@ class ShowTransaksi extends Component
         $this->showPasienPicker = false;
         $this->showKonfirmasiPasienLama = false;
         $this->selectedPasienId = null;
-
         $this->fetch($this->transaksi->id);
+        $this->dispatch('toast', title: 'Transaksi dikonfirmasi dengan pasien lama', icon: 'success');
     }
 
     public function render()

@@ -143,4 +143,21 @@
     </div>
 
 
+    @push('scripts')
+    <script>
+        window.addEventListener('toast', event => {
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    icon: event.detail.icon || 'info',
+                    title: event.detail.title || '',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true
+                });
+            });
+    </script>
+    @endpush
+
+
 </div>

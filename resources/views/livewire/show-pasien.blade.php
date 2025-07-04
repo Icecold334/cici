@@ -73,7 +73,7 @@
                             </span>
                         </td>
                         <td class="px-3 py-2">
-                            Rp{{ number_format($trx->listTransaksis->sum(fn($d) => $d->layanan->harga), 0, ',', '.') }}
+                            Rp{{ number_format($trx->listTransaksis->sum(fn($d) => $d->harga), 0, ',', '.') }}
                         </td>
                         <td class="px-3 py-2 text-right">
                             <button wire:click="showModal({{ $trx->id }})"
@@ -102,7 +102,7 @@
         <div class="bg-white w-full max-w-md rounded-lg shadow-lg">
             <div class="flex items-center justify-between p-4 border-b rounded-t">
                 <h3 class=" font-semibold text-gray-900">
-                    Detail Layanan - {{ $selectedTrx->waktu->translatedFormat('l, d F Y H:i') }}
+                    Detail Transaksi - {{ $selectedTrx->waktu->translatedFormat('l, d F Y H:i') }}
                 </h3>
                 <button wire:click="closeModal" class="text-gray-400 hover:text-gray-900">
                     <i class="fa-solid fa-xmark text-xl"></i>
@@ -112,8 +112,8 @@
                 <ul class="space-y-1 text-sm">
                     @foreach ($selectedTrx->listTransaksis as $detail)
                     <li class="flex justify-between">
-                        <span>{{ $detail->layanan->nama }}</span>
-                        <span>Rp{{ number_format($detail->layanan->harga, 0, ',', '.') }}</span>
+                        <span>{{ $detail->nama }}</span>
+                        <span>Rp{{ number_format($detail->harga, 0, ',', '.') }}</span>
                     </li>
                     @endforeach
                 </ul>

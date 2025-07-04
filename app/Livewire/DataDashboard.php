@@ -79,10 +79,11 @@ class DataDashboard extends Component
         ];
 
         $this->transaksiPerStatus = collect($statusList)->mapWithKeys(function ($label, $status) {
-            return [$label => \App\Models\Transaksi::where('status', $status)->count()];
+            return [$label => Transaksi::where('status', $status)->count()];
         })->toArray();
 
         $list = ListTransaksi::whereHas('transaksi', fn($q) => $q->where('status', '!=', 4))
+            ->whereHas('layanan')
             ->with('layanan')
             ->get()
             ->groupBy('layanan.nama')
