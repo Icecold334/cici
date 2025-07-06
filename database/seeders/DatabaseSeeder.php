@@ -17,14 +17,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Layanan::factory(15)->create();
-        Pasien::factory(50)->create();
-        Transaksi::factory(100)->create();
+        // Layanan::factory(15)->create();
+        // Pasien::factory(50)->create();
+        // Transaksi::factory(100)->create();
 
 
         User::factory()->create([
-            'name' => 'Beauty Clinic',
-            'email' => 'bucici@email.com',
+            'name' => 'Cici Beauty',
+            'email' => 'cicibeauty@email.com',
         ]);
     }
 }
