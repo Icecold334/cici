@@ -98,8 +98,9 @@ class Booking extends Component
             ]);
         }
 
-        $this->dispatch('booked', 'Booking berhasil disimpan!');
+        // $this->dispatch('booked', 'Booking berhasil disimpan!');
         $this->closeModal();
+        return redirect()->to('/')->with('booked', 'Reservasi berhasil!');
     }
 
     public function render()

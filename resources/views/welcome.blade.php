@@ -24,7 +24,20 @@
   </header>
   <livewire:welcome :layanans="$layanans" />
 </body>
+@if (session('booked'))
 <script>
+  Swal.fire({
+      toast: true,
+      position: 'top-end',
+      icon: 'success',
+      title: @json(session('booked')),
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+    });
+</script>
+@endif
+{{-- <script>
   window.addEventListener('booked', function (event) {
     Swal.fire({
       toast: true,
@@ -36,6 +49,7 @@
       timerProgressBar: true,
     });
   });
-</script>
+</script> --}}
+
 
 </html>
